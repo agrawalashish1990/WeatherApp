@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="rationale_location">This app needs access to your location to fetch the weather info.</string>
+    <string name="returned_from_app_settings_to_activity">Returned from app settings to MainActivity with the following permissions: \n\nLocation: %s</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="current_location">Current Location</string>
+    <string name="exit">Exit</string>
+    <string name="search_label_text">Search by city name/ state code/ country code</string>
+    <string name="btn_search_text">Fetch Weather Info</string>
+    <string name="my_favourite">My Favourites</string>
+    <string name="add_to_fav">Add Favourite</string>
+    <string name="remove_to_fav">Remove Favourite</string>
+    <string name="plz_enter_input">Please enter city name/ state code/ country code</string>
+    <string name="min_max_temp">Min %.2f°C - Max %.2f°C</string>
+    <string name="temp">%.2f°C</string>
+    <string name="no_data_found">No data found.</string>
+    <string name="plz_try_again">OOps something went wrong. Please try again or later.</string>
+    <string name="image_url">http://openweathermap.org/img/wn/%s@2x.png</string>
+    <string name="loading">Fetching Info...</string>
+    <string name="empty_fav_list">No Favourites available. </string>
+</resources>

@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="example.javatpoint.com.kotlinoptionsmenu.MainActivity">
+    <item
+        android:id="@+id/action_dark_mode"
+        android:title="@string/dark_mode" />
+
+    <item
+        android:id="@+id/action_my_fav"
+        android:title="@string/my_favourite" />
+    <item
+        android:id="@+id/action_current_location"
+        android:title="@string/current_location" />
+    <item
+        android:id="@+id/action_exit"
+        android:title="@string/exit" />
+</menu>

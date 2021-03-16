@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_16">
+
+    <ImageView
+        android:id="@+id/ivWeather"
+        android:layout_width="@dimen/image_size_weather"
+        android:layout_height="@dimen/image_size_weather"
+        android:layout_margin="@dimen/margin_16"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvCurrentTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivWeather"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_toRightOf="@+id/ivWeather"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_25"
+        tools:text="30°C" />
+
+
+    <TextView
+        android:id="@+id/tvCityName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCurrentTemp"
+        android:layout_alignLeft="@+id/tvCurrentTemp"
+        android:gravity="left"
+        android:textSize="@dimen/text_size_30"
+        tools:text="Delhi" />
+
+    <TextView
+        android:id="@+id/tvWeatherType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCityName"
+        android:layout_alignLeft="@+id/tvCityName"
+        android:gravity="left"
+        android:textSize="@dimen/text_size_15"
+        tools:text="Smoke" />
+
+
+    <TextView
+        android:id="@+id/tvMinMaxTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvWeatherType"
+        android:layout_alignLeft="@+id/tvWeatherType"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/text_size_15"
+        tools:text="15°C - 30°C" />
+
+
+    <Button
+        android:id="@+id/btnAddFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivWeather"
+        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@id/ivWeather"
+        android:text="@string/add_to_fav"
+        android:textSize="10sp" />
+
+</RelativeLayout>
