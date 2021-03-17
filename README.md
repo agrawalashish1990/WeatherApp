@@ -21,11 +21,13 @@ This app is using APIs of https://openweathermap.org/
 To run this APP please put KEY_WEATHER_API in Constants.kt
 
 
-Used Third party libraries-
+ Third party libraries-
 
 1. For permissions - pub.devrel:easypermissions
 2. For Image loading - com.github.bumptech.glide:glide
 3. For network API calls - com.squareup.retrofit2:retrofit
+
+
 
 
 I used below things to implement app -
@@ -33,12 +35,14 @@ I used below things to implement app -
 2. Live Data
 3. View Model
 4. Retrofit
+5. Locations API
+6. Image loading library
 5. SharedPreference
 
 
 
 
-
+![](/screenshots/demo.gif)
 
 
 
