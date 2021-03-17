@@ -8,4 +8,5 @@
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_15">15sp</dimen>
     <dimen name="image_size_weather">100dp</dimen>
+    <dimen name="progress_bar_size">100dp</dimen>
 </resources>

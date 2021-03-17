@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:scrollbars="none">
 
-    <RelativeLayout android:id="@+id/rootLayout"
+    <RelativeLayout
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -22,10 +23,10 @@
                 android:id="@+id/etInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="1"
-                android:inputType="textNoSuggestions"
                 android:hint="@string/search_label_text"
-                android:imeOptions="actionSearch" />
+                android:imeOptions="actionSearch"
+                android:inputType="textNoSuggestions"
+                android:lines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,13 +39,21 @@
             android:text="@string/btn_search_text"
             android:textAllCaps="false" />
 
-        <include android:id="@+id/detailLayout"
+        <include
+            android:id="@+id/detailLayout"
             layout="@layout/layout_weather_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/btnSearch"
             android:layout_marginTop="10dp" />
 
+        <include
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            layout="@layout/layout_progress_bar" />
 
     </RelativeLayout>
 </ScrollView>

@@ -3,55 +3,54 @@ package com.dev.ashish.weather.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.dev.ashish.weather.R
+import com.dev.ashish.weather.fragment.HomeFragment
 import com.dev.ashish.weather.fragment.MyFavFragment
-import com.dev.ashish.weather.fragment.MyHomeFragment
+import com.dev.ashish.weather.storage.prefs.SessionPref
+import com.dev.ashish.weather.utils.WeatherAppUtils
 import com.google.android.gms.location.*
+import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
-import java.util.*
-
 
 //
 // Created by Ashish on 15/03/21.
 //
 
-class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks,
-    EasyPermissions.RationaleCallbacks {
+class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks {
 
     private val TAG = HomeActivity::class.java.name
     private val RC_LOCATION_PERM = 101
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
-    private var startLocationUpdate = false;
+    private var startLocationUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        showFragment(MyHomeFragment.getInstance())
+        setSupportActionBar(toolbar)
+        showFragment(HomeFragment.getInstance())
     }
 
-    private fun menuDarkModeSelected() {
-        val isNightTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        when (isNightTheme) {
-            Configuration.UI_MODE_NIGHT_YES ->
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            Configuration.UI_MODE_NIGHT_NO ->
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
+    /**
+     * Change Theme - Menu Click Event
+     */
+    private fun menuChangeThemeSelected() {
+        val sessionPref = SessionPref.getSharedPref(applicationContext)
+        sessionPref.setDarkTheme(!sessionPref.getDarkTheme())
+        WeatherAppUtils.setAppTheme(applicationContext)
     }
 
+    /**
+     * Get weather info for device location
+     */
     private fun menuCurrentLocationSelected() {
         if (!hasLocationPermissions()) {
             checkPermission()
@@ -60,22 +59,49 @@ class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks,
         }
     }
 
+    /**
+     * exit menu click event
+     */
     private fun menuExitClicked() {
         finish()
     }
 
+    /**
+     * My Fav menu click event
+     */
     private fun menuMyFavClicked() {
         showFragment(MyFavFragment.getInstance())
     }
 
+    /**
+     * Menu Options Setup
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
+    /**
+     * Change Theme Name As per current theme
+     */
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            val item = menu.findItem(R.id.action_change_theme)
+            if (SessionPref.getSharedPref(this).getDarkTheme()) {
+                item.title = getString(R.string.light_mode)
+            } else {
+                item.title = getString(R.string.dark_mode)
+            }
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    /**
+     * Menu Item Click Event
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_dark_mode -> menuDarkModeSelected()
+            R.id.action_change_theme -> menuChangeThemeSelected()
             R.id.action_current_location -> menuCurrentLocationSelected()
             R.id.action_exit -> menuExitClicked()
             R.id.action_my_fav -> menuMyFavClicked()
@@ -83,18 +109,26 @@ class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks,
         return true
     }
 
-
-    fun showFragment(newFragment: Fragment) {
-        var tag = newFragment::class.java.simpleName
+    /**
+     * Load Fragment
+     */
+    private fun showFragment(newFragment: Fragment) {
+        val tag = newFragment::class.java.simpleName
         supportFragmentManager.beginTransaction().replace(R.id.container, newFragment, tag)
             .addToBackStack(tag).commitAllowingStateLoss()
     }
 
+    /**
+     * This function will be called when required permissions will be granted
+     */
     @SuppressLint("MissingPermission")
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         getDeviceLocation()
     }
 
+    /**
+     * Callback - when user accepts/deny permission
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -105,6 +139,9 @@ class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks,
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
+    /**
+     * This function will be called when required permissions will be denied
+     */
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size)
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
@@ -112,12 +149,19 @@ class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks,
         }
     }
 
-    fun hasLocationPermissions(): Boolean {
+    /**
+     * Returns whether app has LOCATION permissions or not
+     */
+    private fun hasLocationPermissions(): Boolean {
         return EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION) ||
                 EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_COARSE_LOCATION)
     }
 
-    fun checkPermission() {
+    /**
+     * This method asks for permissions if not granted
+     */
+
+    private fun checkPermission() {
         if (!hasLocationPermissions()) {
             EasyPermissions.requestPermissions(
                 this,
@@ -128,7 +172,7 @@ class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks,
         }
     }
 
-    @SuppressLint("StringFormatMatches")
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
@@ -136,96 +180,94 @@ class HomeActivity : BaseActivity(),  EasyPermissions.PermissionCallbacks,
         }
     }
 
-    override fun onRationaleAccepted(requestCode: Int) {
-        Log.d(TAG, "onRationaleAccepted:" + requestCode)
-    }
 
-    override fun onRationaleDenied(requestCode: Int) {
-        Log.d(TAG, "onRationaleDenied:" + requestCode)
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    fun setUpLocationCallback() {
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                locationResult ?: return
-                startLocationUpdate = false
-                stopLocationUpdatesListener()
-                if (!locationResult.locations.isEmpty()) {
-                    var location = locationResult.locations[0]
-                    var postalCode = getPostalCode(location)
-                    getWeatherInfo(postalCode)
-                }
-            }
-
-            override fun onLocationAvailability(p0: LocationAvailability) {
-                super.onLocationAvailability(p0)
-            }
-        }
-    }
-
+    /**
+     *  Fetch device last saved location if exists
+     *  if location == null then start location update
+     */
     @SuppressLint("MissingPermission")
-    fun getDeviceLocation() {
+    private fun getDeviceLocation() {
         if (hasLocationPermissions()) {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                //If location not available then
                 if (location == null) {
                     startLocationUpdate = true
-                    setUpLocationCallback()
                     startLocationUpdateListner()
                 } else {
                     startLocationUpdate = false
-                    var postalCode = getPostalCode(location)
+                    val postalCode = WeatherAppUtils.getPostalCode(applicationContext,location)
                     getWeatherInfo(postalCode)
                 }
             }
         }
     }
 
-    fun getWeatherInfo(postalCode : String){
-        var fragment = getFragment(MyHomeFragment::class.java.simpleName)
+    /**
+     * This method will fetch weather info using HomeFragment
+     *
+     */
+    private fun getWeatherInfo(postalCode: String){
+        val fragment = getFragment(HomeFragment::class.java.simpleName)
         fragment?.let {
+            //If fragment is not visible then show that screen
             if(!fragment.isVisible){
                 supportFragmentManager.popBackStack()
             }
-            (fragment as MyHomeFragment).fetchData(postalCode)
+            //Fetch data
+            (fragment as HomeFragment).fetchData(postalCode)
         }
     }
 
-    fun getFragment(tag : String) : Fragment?{
-        return supportFragmentManager.findFragmentByTag(tag)
-    }
 
+
+    /**
+     * This method used if we don't get last location from fused Location provider
+     * In this we will setup LOCATION listener to update the device location
+     */
     @SuppressLint("MissingPermission")
     private fun startLocationUpdateListner() {
-        fusedLocationClient?.requestLocationUpdates(
+        locationCallback = object : LocationCallback() {
+            /**
+             * This method is called when device receive location changes
+             */
+            override fun onLocationResult(locationResult: LocationResult) {
+                startLocationUpdate = false
+                //Stop location update further because we dont need it
+                stopLocationUpdatesListener()
+
+                //Process location
+                if (locationResult.locations.isNotEmpty()) {
+                    //Get Postal code from current location
+                    val postalCode = WeatherAppUtils.getPostalCode(applicationContext,locationResult.locations[0])
+                    //get weather info for location
+                    getWeatherInfo(postalCode)
+                }
+            }
+        }
+
+        fusedLocationClient.requestLocationUpdates(
             LocationRequest.create(),
             locationCallback, Looper.getMainLooper()
         )
     }
 
+    /**
+     * Stop location updates
+     */
+
     private fun stopLocationUpdatesListener() {
-        fusedLocationClient?.removeLocationUpdates(locationCallback)
+        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    fun getPostalCode(location: Location?): String {
-        location?:return ""
-        location?.let {
-            val geocoder = Geocoder(this, Locale.getDefault())
-            val addresses: List<Address> =
-                geocoder.getFromLocation(location.latitude, location.longitude, 1)
-            if (!addresses?.isEmpty()) {
-                val postalCode: String = addresses[0].postalCode
-                return postalCode;
-            }
-        }
-        return ""
+
+    override fun onBackPressed() {
+       if(supportFragmentManager.backStackEntryCount <=1){
+           finish()
+       }else{
+           supportFragmentManager.popBackStack()
+       }
     }
+
+
 }

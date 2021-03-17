@@ -5,7 +5,8 @@
     <string name="rationale_location">This app needs access to your location to fetch the weather info.</string>
     <string name="returned_from_app_settings_to_activity">Returned from app settings to MainActivity with the following permissions: \n\nLocation: %s</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="current_location">Current Location</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="detect_my_location_weather">My Location-Weather</string>
     <string name="exit">Exit</string>
     <string name="search_label_text">Search by city name/ state code/ country code</string>
     <string name="btn_search_text">Fetch Weather Info</string>
@@ -19,5 +20,7 @@
     <string name="plz_try_again">OOps something went wrong. Please try again or later.</string>
     <string name="image_url">http://openweathermap.org/img/wn/%s@2x.png</string>
     <string name="loading">Fetching Info...</string>
-    <string name="empty_fav_list">No Favourites available. </string>
+    <string name="empty_fav_list">No favourites available. </string>
+    <string name="no_internet_connection">No internet connection available. </string>
+    <string name="msg_show_data_from_cache">Showing data from cache</string>
 </resources>

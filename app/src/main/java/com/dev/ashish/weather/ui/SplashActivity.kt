@@ -13,7 +13,8 @@ import java.util.*
 
 class SplashActivity : BaseActivity() {
 
-    val SPLASH_TIME_OUT: Long = 3000
+    private val SPLASH_TIME_OUT: Long = 3000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -21,17 +22,22 @@ class SplashActivity : BaseActivity() {
         setupSplashTimer()
     }
 
-    fun setupSplashTimer() {
+    /**
+     * This method will set timer and will launch next screen
+     */
+   private fun setupSplashTimer() {
         var timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
                 navigateToNextScreen()
-                timer.cancel()
             }
-        }, SPLASH_TIME_OUT, SPLASH_TIME_OUT)
+        }, SPLASH_TIME_OUT)
     }
 
-    fun navigateToNextScreen() {
+    /**
+     * This method will navigate to Home Screen
+     */
+    private fun navigateToNextScreen() {
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }

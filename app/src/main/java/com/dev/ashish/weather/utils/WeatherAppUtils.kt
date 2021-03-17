@@ -2,6 +2,9 @@ package com.dev.ashish.weather.utils
 
 import android.app.Activity
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.view.View
@@ -9,8 +12,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.Glide
 import com.dev.ashish.weather.R
+import com.dev.ashish.weather.storage.prefs.SessionPref
+import java.util.*
 
 
 //
@@ -19,6 +25,9 @@ import com.dev.ashish.weather.R
 
 object WeatherAppUtils {
 
+    /**
+     * This method will return about connectivity status of device
+     */
     fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -37,21 +46,18 @@ object WeatherAppUtils {
         return false
     }
 
+    /**
+     * This method will convert fahrenheit to celcius
+     */
 
-    fun ImageView.loadImage(icon: String){
-        Glide
-            .with(this)
-            .load(Constants.IMAGE_BASE_URL.plus(icon).plus("@2x.png"))
-            .centerCrop()
-            .placeholder(R.mipmap.ic_launcher)
-            .into(this);
+    fun convertFahrenheitToCelsius(fahrenheitVal: Double): Double{
+       return (0.5556*(fahrenheitVal-32))
     }
 
-    fun convertToCelcius(far: Double): Double{
-       return ((far-32)*0.55)
-    }
-
-    fun hideKeyboard(activity: Activity) {
+    /**
+     * This method is used to hide the keyboard
+     */
+    private fun hideKeyboard(activity: Activity) {
         activity?.let {
             activity.currentFocus?.let { currentFocus->
                 try {
@@ -63,6 +69,11 @@ object WeatherAppUtils {
             }
         }
     }
+
+    /**
+     * This method will set touch listener for all views except EditText
+     * It is used to hide keyboard when user touch screen out side keyboard/editext
+     */
 
     fun setupUI(activity: Activity, view: View) {
         // Set up touch listener for non-text box views to hide keyboard.
@@ -79,5 +90,34 @@ object WeatherAppUtils {
                 setupUI(activity, innerView)
             }
         }
+    }
+
+    /**
+     * This method will fetch the mode from local cache and will set theme DARK/LIGHT
+     */
+
+     fun setAppTheme(context: Context){
+        var isDarkMode : Boolean = SessionPref.getSharedPref(context).getDarkTheme()
+        if(isDarkMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    /**
+     * Get postal code from location
+     *
+     */
+     fun getPostalCode(context: Context,location: Location?): String {
+        if(location != null){
+            val geocoder = Geocoder(context, Locale.getDefault())
+            val addresses: List<Address> =
+                geocoder.getFromLocation(location.latitude, location.longitude, 1)
+            if (addresses.isNotEmpty()) {
+                return addresses[0].postalCode
+            }
+        }
+        return ""
     }
 }

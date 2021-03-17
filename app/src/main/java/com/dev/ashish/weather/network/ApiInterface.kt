@@ -10,12 +10,11 @@ import retrofit2.http.Query
 //
 
 interface ApiInterface {
-    // Pass city, stateCode, Countrycode as per availability
+
     @GET("weather")
     fun getWeatherInfo(
         @Query("q") input: String,
         @Query("appid") key: String
     ): Call<WeatherResponseModel>
-
 
 }

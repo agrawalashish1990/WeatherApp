@@ -18,10 +18,9 @@ data class WeatherResponseModel(
     val id: Long,
     val name: String,
     val cod: Int
-) {
-}
+)
 
-data class CordsDetail(val lon: Double, val lat: Double) {}
+data class CordsDetail(val lon: Double, val lat: Double)
 
 data class WeatherInfo(val id: Long, val main: String, val description: String, val icon: String)
 

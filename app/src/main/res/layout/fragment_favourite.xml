@@ -6,29 +6,19 @@
     android:layout_height="match_parent"
     android:scrollbars="none">
 
-   <TextView
-       android:id="@+id/tvHeading"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:textSize="@dimen/text_size_20"
-       android:gravity="center"
-       android:padding="10dp"
-       android:text="@string/my_favourite" />
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/rvLocations"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_marginTop="10dp"
-       android:layout_below="@+id/tvHeading"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLocations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-   <TextView
-       android:id="@+id/tvEmptyData"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:textSize="@dimen/text_size_15"
-       android:gravity="center"
-       android:visibility="gone"
-       android:text="@string/empty_fav_list" />
+    <TextView
+        android:id="@+id/tvEmptyData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/empty_fav_list"
+        android:textSize="@dimen/text_size_15"
+        android:visibility="gone" />
 
 </RelativeLayout>

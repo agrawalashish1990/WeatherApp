@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.ashish.weather.R
+import com.dev.ashish.weather.extensions.WeatherAppExtensions.loadImage
 import com.dev.ashish.weather.model.WeatherResponseModel
-import com.dev.ashish.weather.storage.prefs.SessionPref
 import com.dev.ashish.weather.utils.WeatherAppUtils
-import com.dev.ashish.weather.utils.WeatherAppUtils.loadImage
-import kotlinx.android.synthetic.main.layout_weather_detail.*
 import kotlinx.android.synthetic.main.layout_weather_detail.view.*
 
 //
@@ -21,7 +19,7 @@ class FavouriteListAdapter(var context : Context, var list : MutableList<Weather
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavViewHolder {
         return FavViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.layout_weather_detail,
+                R.layout.layout_fav_weather_detail,
                 parent,
                 false
             )
@@ -44,13 +42,12 @@ class FavouriteListAdapter(var context : Context, var list : MutableList<Weather
             }
             view.tvCityName.text = response.name
             view.tvCurrentTemp.text =
-                view.context.getString(R.string.temp, WeatherAppUtils.convertToCelcius(response.main.temp))
+                view.context.getString(R.string.temp, WeatherAppUtils.convertFahrenheitToCelsius(response.main.temp))
             view.tvMinMaxTemp.text =
                 view.context.getString(
-                    R.string.min_max_temp, WeatherAppUtils.convertToCelcius(response.main.temp_min),
-                    WeatherAppUtils.convertToCelcius(response.main.temp_max)
+                    R.string.min_max_temp, WeatherAppUtils.convertFahrenheitToCelsius(response.main.temp_min),
+                    WeatherAppUtils.convertFahrenheitToCelsius(response.main.temp_max)
                 )
-            view.btnAddFav.visibility = View.GONE
         }
     }
 }
