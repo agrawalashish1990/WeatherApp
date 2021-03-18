@@ -47,7 +47,7 @@ class WeatherViewModel() : ViewModel() {
             return
         }
 
-        ApiClient.getClient.getWeatherInfo(input, Constants.KEY_WEATHER_API).enqueue(object :
+        ApiClient.getClient.getWeatherInfo(input).enqueue(object :
             Callback<WeatherResponseModel?> {
             override fun onResponse(
                 call: Call<WeatherResponseModel?>,

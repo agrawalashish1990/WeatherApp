@@ -42,7 +42,14 @@ I used below things to implement app -
 
 
 
-![](/screenshots/demo.gif)
+![HomeScreenDay](screenshots/1.png "Home Screen Light")
+![MyFavouritesLight](screenshots/2.png "MyFavourites Light")
+![MyFavouritesDark](screenshots/3.png "MyFavourites Dark")
+![HomeScreenDayDark](screenshots/4.png "Home Screen Dark")
+![HomeScreenDarkLandscape](screenshots/5.png "Home Screen Dark Landscape")
+![MyFavouritesDarkLandscape](screenshots/6.png "MyFavourites Dark -Landscape")
+![MenuDarkLandscape](screenshots/7.png "Menu Screen Dark Landscape Mode")
+![MenuDay](screenshots/8.png "Menu Screen Light")
 
 
 
