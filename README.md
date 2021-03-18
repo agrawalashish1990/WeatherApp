@@ -41,7 +41,8 @@ I used below things to implement app -
 
 
 
-
+![SplashLight](screenshots/0.png "Splash Light")
+![SplashDark](screenshots/0_1.png "Splash Dark")
 ![HomeScreenDay](screenshots/1.png "Home Screen Light")
 ![MyFavouritesLight](screenshots/2.png "MyFavourites Light")
 ![MyFavouritesDark](screenshots/3.png "MyFavourites Dark")
