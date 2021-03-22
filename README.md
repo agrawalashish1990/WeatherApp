@@ -38,19 +38,18 @@ I used below things to implement app -
 5. Locations API
 6. Image loading library
 5. SharedPreference
-6. JUnit test cases
 
 
 
-<a href="url"><img src="/screenshots/0.png" align="left"  ></a>
-<a href="url"><img src="/screenshots/0_1.png" align="left" ></a>
-<a href="url"><img src="/screenshots/1.png" align="left"  ></a>
-<a href="url"><img src="/screenshots/2.png" align="left" height="500" width="300" ></a>
-<a href="url"><img src="/screenshots/3.png" align="left" height="500" width="300" ></a>
-<a href="url"><img src="/screenshots/4.png" align="left" height="500" width="300" ></a>
-<a href="url"><img src="/screenshots/5.png" align="left" height="500" width="300" ></a>
-<a href="url"><img src="/screenshots/6.png" align="left" height="500" width="300" ></a>
-<a href="url"><img src="/screenshots/7.png" align="left" height="500" width="300" ></a>
-<a href="url"><img src="/screenshots/8.png" align="left" height="500" width="300" ></a>
+![SplashLight](screenshots/0.png "Splash Light")
+![SplashDark](screenshots/0_1.png "Splash Dark")
+![HomeScreenDay](screenshots/1.png "Home Screen Light")
+![MyFavouritesLight](screenshots/2.png "MyFavourites Light")
+![MyFavouritesDark](screenshots/3.png "MyFavourites Dark")
+![HomeScreenDayDark](screenshots/4.png "Home Screen Dark")
+![HomeScreenDarkLandscape](screenshots/5.png "Home Screen Dark Landscape")
+![MyFavouritesDarkLandscape](screenshots/6.png "MyFavourites Dark -Landscape")
+![MenuDarkLandscape](screenshots/7.png "Menu Screen Dark Landscape Mode")
+![MenuDay](screenshots/8.png "Menu Screen Light")
 
 
