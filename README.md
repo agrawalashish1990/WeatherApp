@@ -42,9 +42,9 @@ I used below things to implement app -
 
 
 
-<a href="url"><img src="/screenshots/0.png" align="left" height="240" width="160" ></a>
-<a href="url"><img src="/screenshots/0_1.png" align="left" height="240" width="160" ></a>
-<a href="url"><img src="/screenshots/1.png" align="left" height="240" width="160" ></a>
+<a href="url"><img src="/screenshots/0.png" align="left"  ></a>
+<a href="url"><img src="/screenshots/0_1.png" align="left" ></a>
+<a href="url"><img src="/screenshots/1.png" align="left"  ></a>
 <a href="url"><img src="/screenshots/2.png" align="left" height="500" width="300" ></a>
 <a href="url"><img src="/screenshots/3.png" align="left" height="500" width="300" ></a>
 <a href="url"><img src="/screenshots/4.png" align="left" height="500" width="300" ></a>
