@@ -38,6 +38,7 @@ I used below things to implement app -
 5. Locations API
 6. Image loading library
 5. SharedPreference
+6. JUnit test cases
 
 
 
